@@ -52,7 +52,8 @@ func main() {
 	slice := reAll.FindAllString(input, -1)
 
 	if len(slice) != 3 {
-		panic("Ошибка неправильный ввод, использ больше 2-х чисел, \n попытка получения отрицательного числа в римской системе!")
+		panic("Ошибка неправильный ввод, использ больше 2-х чисел, \n попытка получения отрицательного числа в римской системе!") // при делении если использвать слеш над enter не работает 
+		// но с ниж слешом всё работает... так же прикреплю 2 скрина в ответ сообщении
 	}
 	theArabic := regexp.MustCompile(`\d+`)         // проверка на араб числа
 	theRoman := regexp.MustCompile(`[IIIVXCLDM]+`) // проверка на рим числа
@@ -103,9 +104,13 @@ func main() {
 
 		result = val1 * val2
 	case "/":
+		if val2 == 0 {
+			panic("Ошибка деления на 0")
+		}
 		result = val1 / val2
-	}
-
+		if result < 1 {
+			panic("Результат операции меньше 0")
+		}
 	reeRoman := regexp.MustCompile(`[IIIVXCLDM]+`)
 	reeArabic := regexp.MustCompile(`\d+`)
 	if reeRoman.MatchString(input) {
