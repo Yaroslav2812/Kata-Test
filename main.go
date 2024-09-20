@@ -52,7 +52,7 @@ func main() {
 	slice := reAll.FindAllString(input, -1)
 
 	if len(slice) != 3 {
-		fmt.Println("Ошибка неправильный ввод 3 + 3 + 3. правильный ввод 3 + 3  ")
+		panic("Ошибка неправильный ввод 3 + 3 + 3. правильный ввод 3 + 3  ")
 	}
 	theArabic := regexp.MustCompile(`\d+`)         // проверка на араб числа
 	theRoman := regexp.MustCompile(`[IIIVXCLDM]+`) // проверка на рим числа
@@ -69,7 +69,7 @@ func main() {
 		} else if elem == "+" || elem == "-" || elem == "*" || elem == "/" { // проверка операторов
 			continue
 		} else {
-			println("Ошибка неверный оператор или смешнные числа")
+			panic("Ошибка: неверный оператор или смешение типов")
 			return
 		}
 	}
@@ -79,8 +79,7 @@ func main() {
 	} else if reRoman && !reArabic {
 		// fmt.Println("Input содержит только римские числа")
 	} else { // но а если оба варианта True то у нас было смешивание типов чисел
-		fmt.Println("Ошибка: смешивание арабских и римских чисел")
-
+		panic("Ошибка: смешивание арабских и римских чисел")
 	}
 
 	num1 := slice[0]
@@ -90,8 +89,7 @@ func main() {
 	val2, ok2 := allRomanArabic[num2]
 
 	if !ok1 || !ok2 {
-		println("Одно из чисел некорректное или вы пытаетесь поделить на 0")
-
+		panic("Одно из чисел некорректное или вы пытаетесь поделить на 0")
 		return
 	}
 	var result int
