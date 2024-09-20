@@ -52,7 +52,7 @@ func main() {
 	slice := reAll.FindAllString(input, -1)
 
 	if len(slice) != 3 {
-		panic("Ошибка неправильный ввод 3 + 3 + 3. правильный ввод 3 + 3  ")
+		panic("Ошибка неправильный ввод, использ больше 2-х чисел, \n попытка получения отрицательного числа в римской системе!")
 	}
 	theArabic := regexp.MustCompile(`\d+`)         // проверка на араб числа
 	theRoman := regexp.MustCompile(`[IIIVXCLDM]+`) // проверка на рим числа
