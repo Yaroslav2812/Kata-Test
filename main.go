@@ -92,11 +92,11 @@ func main() {
 	val2, ok2 := allRomanArabic[num2]
 
 	if val1 == 0 {
-		panic(" 0")
+		panic("Ошибка в первом операнде, 0 не может приниматься программой")
 		return
 	}
 	if val2 == 0 {
-		panic(" 0")
+		panic("Ошибка во втором операнде, 0 не может приниматься программой")
 		return
 	}
 
