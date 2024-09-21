@@ -69,6 +69,8 @@ func main() {
 			reArabic = false //
 		} else if elem == "+" || elem == "-" || elem == "*" || elem == "/" { // проверка операторов
 			continue
+		} else if elem != "0" {
+			panic("одно или несколько числе равны 0")
 		} else {
 			panic("Ошибка: неверный оператор или смешение типов")
 			return
@@ -89,10 +91,20 @@ func main() {
 	val1, ok1 := allRomanArabic[num1]
 	val2, ok2 := allRomanArabic[num2]
 
+	if val1 == 0 {
+		panic(" 0")
+		return
+	}
+	if val2 == 0 {
+		panic(" 0")
+		return
+	}
+
 	if !ok1 || !ok2 {
 		panic("Одно из чисел некорректное или вы пытаетесь поделить на 0")
 		return
 	}
+
 	var result int
 	switch oper {
 	case "+":
