@@ -9,7 +9,7 @@ import (
 
 func main() {
 	var allRomanArabic = map[string]int{
-		"1": 1, "2": 2, "3": 3, "4": 4, "5": 5,
+		"0": 0, "1": 1, "2": 2, "3": 3, "4": 4, "5": 5,
 		"6": 6, "7": 7, "8": 8, "9": 9, "10": 10,
 		"I": 1, "II": 2, "III": 3, "IV": 4, "V": 5,
 		"VI": 6, "VII": 7, "VIII": 8, "IX": 9, "X": 10,
@@ -47,13 +47,13 @@ func main() {
 	input, _ := reader.ReadString('\n')
 
 	// создаём регулярное выражение для поиска чисел и операторов
-	reAll := regexp.MustCompile(`\d+|[IIIVXCLDM]+|\+|\-|\*|\/`)
+	reAll := regexp.MustCompile(`\d+|[IIIVXCLDM]+|\+|\-|\*|\/|\/`)
 	// поиск всех совпадений по инструкции выше
 	slice := reAll.FindAllString(input, -1)
 
 	if len(slice) != 3 {
-		panic("Ошибка неправильный ввод, использ больше 2-х чисел, \n попытка получения отрицательного числа в римской системе!") // при делении если использвать слеш над enter не работает 
-		// но с ниж слешом всё работает... так же прикреплю 2 скрина в ответ сообщении
+		panic("Ошибка неправильный ввод, использ больше 2-х чисел, \n попытка получения отрицательного числа в римской системе ")
+		// Исправил ошибку меня переклинило и я неправильный символ ставил...
 	}
 	theArabic := regexp.MustCompile(`\d+`)         // проверка на араб числа
 	theRoman := regexp.MustCompile(`[IIIVXCLDM]+`) // проверка на рим числа
@@ -100,6 +100,7 @@ func main() {
 	case "-":
 
 		result = val1 - val2
+
 	case "*":
 
 		result = val1 * val2
@@ -108,31 +109,17 @@ func main() {
 			panic("Ошибка деления на 0")
 		}
 		result = val1 / val2
+
+	}
+	if reRoman && !reArabic { // обрабатываем римские числа
 		if result < 1 {
-			panic("Результат операции меньше 0")
+			panic("Ошибка: результат меньше или равен 0")
 		}
-	reeRoman := regexp.MustCompile(`[IIIVXCLDM]+`)
-	reeArabic := regexp.MustCompile(`\d+`)
-	if reeRoman.MatchString(input) {
-		resultConv := result
-		value, exists := convArabicToRoman[resultConv]
-		if reRoman && !reArabic {
-
-			fmt.Println(value)
-		} else if exists {
-
+		if romanResult, exists := convArabicToRoman[result]; exists {
+			fmt.Println(romanResult)
 		}
-
-	} else if reeArabic.MatchString(input) {
-		println(result)
+	} else { // обрабатываем арабские числа
+		fmt.Println(result)
 	}
 
-	// последний цикл я сам не понял как он работает, но он работает
-	// мы в цикле проверяем какие у нас цифры римские или арабские если арабские то просто выводим ответ
-	// если римские то мы через мапу конвертируем его в строку
-	// для этого я взял значение из переменной result перезаписал его в новую переменную
-	// далее я сделал сверку значений из мапы convArabicToRoman и записал ответ в Value
-	// так же была ошибка если я вводил значения 3 + V то он выдавал ошибку и выдавал результат
-	// это помогло исправить опять проверка reRoman && !reArabic
-	// я думал что это не поможет, но помогло. Дальше я действовал согласно правилу, работает не трогай.
 }
